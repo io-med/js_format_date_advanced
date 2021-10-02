@@ -50,7 +50,92 @@
  */
 
 function formatDate(date, fromFormat, toFormat) {
-  // write code here
+  const splittedDate = date.split(`${fromFormat[3]}`);
+  const day = '';
+  const month = '';
+  const year = '';
+  let converted = [];
+
+  for (let i = 0; i < fromFormat.length; i++) {
+    switch (splittedDate[i]) {
+      case 'DD':
+        day = splittedDate[i];
+        break;
+
+      case 'MM':
+        month = splittedDate[i];
+        break;
+
+      default:
+        if (toFormat.includes(YY)) {
+          if (splittedDate[i].length === 2) {
+            year = splittedDate[i];
+          } else {
+            year = splittedDate[i].slice(2, 4);
+          }
+        }
+        if (splittedDate[i].length === 4) {
+          year = splittedDate[i];
+        }
+        if (year < 30) {
+          year = `20${splittedDate[i]}`;
+        } else {
+          year = `19${splittedDate[i]}`;
+        }
+    }
+  }
+
+  //   if (splittedDate[i] === 'DD') {
+  //     day = splittedDate[i];
+  //   }
+  //   if (splittedDate[i] === 'MM') {
+  //     month = splittedDate[i];
+  //   } else {
+  //     if (toFormat.includes(YY)) {
+  //       if (splittedDate[i].length === 2) {
+  //         year = splittedDate[i];
+  //       } else {
+  //         year = splittedDate[i].slice(2, 4);
+  //       }
+  //     }
+  //     if (splittedDate[i].length === 4) {
+  //       year = splittedDate[i];
+  //     }
+  //     if (year < 30) {
+  //       year = `20${splittedDate[i]}`;
+  //     } else {
+  //       year = `19${splittedDate[i]}`;
+  //     }
+  //   }
+  // }
+
+  for (let format of toFormat) {
+    switch (format) {
+      case DD:
+        converted.push(day);
+        break;
+
+      case MM:
+        converted.push(month);
+        break;
+
+      default:
+        converted.push(year);
+    }
+  }
+
+  //   if (format === DD) {
+  //     converted.push(day);
+  //   }
+  //   if (format === MM) {
+  //     converted.push(month);
+  //   } else {
+  //     converted.push(year);
+
+  //   }
+  // }
+
+  return converted.join(toFormat[3]);
 }
 
 module.exports = formatDate;
